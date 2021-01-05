@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DogT.Data;
 
 namespace DogT.Models
 {
@@ -12,7 +13,8 @@ namespace DogT.Models
         public User User { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        //position
+        public Position Position { get; set; }
+        
         //dogs
         //trainings
 
