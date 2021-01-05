@@ -1,0 +1,4 @@
+﻿Add "dog" model
+Add "Specialization" model
+Add "Position" enumeration
+Register and Login viewmodels

@@ -14,5 +14,7 @@ namespace DogT.Data
         }
 
         DbSet<User> Users { get; set; }
+        DbSet<Role> Roles { get; set; }
+        DbSet<DogHandler> DogHandlers { get; set; }
     }
 }
