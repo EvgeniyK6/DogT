@@ -1,4 +1,7 @@
-﻿Add "dog" model
-Add "Specialization" model
-Add "Position" enumeration
-Register and Login viewmodels
+﻿Login viewmodels
+CRUD dog
+CRUD training
+Comment training
+list dogs
+list trainings
+training videos / photos
