@@ -1,0 +1,26 @@
+﻿@model DogT.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Авторизація";
+}
+
+<h3>Авторизація</h3>
+
+<form asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div>
+        <div>
+            <label asp-for="Email">Емейл</label><br />
+            <input type="text" asp-for="Email" />
+            <span asp-validation-for="Email" />
+        </div>
+        <div>
+            <label asp-for="Password">Пароль</label><br />
+            <input asp-for="Password" />
+            <span asp-validation-for="Password" />
+        </div>
+        <div>
+            <input type="submit" value="Авторизація" />
+        </div>
+    </div>
+</form>

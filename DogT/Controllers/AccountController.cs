@@ -77,6 +77,34 @@ namespace DogT.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _context.Users.Include(r => r.Role)
+                    .FirstOrDefaultAsync(u => u.Email == viewModel.Email && u.Password == viewModel.Password);
+
+                if (user != null)
+                {
+                    await Authenticate(user);
+
+                    return RedirectToAction("Index", "Home");
+                }
+
+                ModelState.AddModelError("", "Невірні логін та(чи) пароль");
+            }
+
+            return View(viewModel);
+        }
+
         private async Task Authenticate(User user)
         {
             var claims = new List<Claim>

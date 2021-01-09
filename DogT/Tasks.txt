@@ -1,4 +1,9 @@
-﻿Login viewmodels
+﻿DogHandler functionality:
+-add dog;
+-add trainig;
+
+--------
+
 CRUD dog
 CRUD training
 Comment training
