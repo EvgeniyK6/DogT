@@ -58,6 +58,12 @@ namespace DogT.Data
                 .WithMany(s => s.Comments)
                 .HasForeignKey(sk => sk.TrainingId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Training>()
+                .HasOne(d => d.Dog)
+                .WithMany(t => t.Trainings)
+                .HasForeignKey(fk => fk.DogId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

@@ -1,12 +1,13 @@
 ﻿DogHandler functionality:
+-list dog;
 -add dog;
+-details dog;
+-exclude dog;
+-specialization add
+-specialization delete
 -add trainig;
-
---------
-
-CRUD dog
-CRUD training
-Comment training
-list dogs
-list trainings
-training videos / photos
+-details training;
+-list of trainings;
+-delete training;
+-comment training;
+-add photo/video file to training;

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DogT.Migrations
 {
     [DbContext(typeof(DogTContext))]
-    [Migration("20210108095641_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210111202513_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,10 +31,7 @@ namespace DogT.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int>("DogHadnlerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DogHandlerId")
+                    b.Property<int>("DogHandlerId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -221,7 +218,9 @@ namespace DogT.Migrations
                 {
                     b.HasOne("DogT.Models.DogHandler", "DogHandler")
                         .WithMany("Dogs")
-                        .HasForeignKey("DogHandlerId");
+                        .HasForeignKey("DogHandlerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DogT.Models.Specialization", "Specialization")
                         .WithMany("Dogs")
@@ -256,7 +255,7 @@ namespace DogT.Migrations
                     b.HasOne("DogT.Models.Dog", "Dog")
                         .WithMany("Trainings")
                         .HasForeignKey("DogId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("DogT.Models.Specialization", "Specialization")

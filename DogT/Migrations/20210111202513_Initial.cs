@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DogT.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -84,8 +84,7 @@ namespace DogT.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Age = table.Column<int>(type: "int", nullable: false),
-                    DogHadnlerId = table.Column<int>(type: "int", nullable: false),
-                    DogHandlerId = table.Column<int>(type: "int", nullable: true),
+                    DogHandlerId = table.Column<int>(type: "int", nullable: false),
                     SpecializationId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -96,7 +95,7 @@ namespace DogT.Migrations
                         column: x => x.DogHandlerId,
                         principalTable: "DogHandlers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Dogs_Specializations_SpecializationId",
                         column: x => x.SpecializationId,
@@ -131,8 +130,7 @@ namespace DogT.Migrations
                         name: "FK_Trainings_Dogs_DogId",
                         column: x => x.DogId,
                         principalTable: "Dogs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Trainings_Specializations_SpecializationId",
                         column: x => x.SpecializationId,

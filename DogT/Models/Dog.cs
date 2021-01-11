@@ -10,7 +10,7 @@ namespace DogT.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
-        public int DogHadnlerId { get; set; }
+        public int DogHandlerId { get; set; }
         public DogHandler DogHandler { get; set; }
         public int SpecializationId { get; set; }
         public Specialization Specialization { get; set; }
