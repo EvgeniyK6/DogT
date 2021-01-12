@@ -26,6 +26,7 @@ namespace DogT.Controllers
             var dogs = _context.Dogs
                 .Include(d => d.DogHandler)
                 .ThenInclude(u => u.User)
+                .Include(s => s.Specialization)
                 .Where(dh => dh.DogHandler.User.Email == User.Identity.Name)
                 .ToList();
             
@@ -50,6 +51,27 @@ namespace DogT.Controllers
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
+            }
+
+            return View(dog);
+        }
+
+        public async Task<IActionResult> DetailsDog(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var dog = await _context.Dogs
+                .Include(dh => dh.DogHandler)
+                .ThenInclude(u => u.User)
+                .Include(s => s.Specialization)
+                .FirstOrDefaultAsync(d => d.DogHandler.User.Email == User.Identity.Name && d.Id == id);
+
+            if (dog == null)
+            {
+                return NotFound();
             }
 
             return View(dog);

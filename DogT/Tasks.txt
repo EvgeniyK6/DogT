@@ -1,7 +1,4 @@
 ﻿DogHandler functionality:
--list dog;
--add dog;
--details dog;
 -exclude dog;
 -specialization add
 -specialization delete
