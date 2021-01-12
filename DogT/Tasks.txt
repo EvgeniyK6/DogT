@@ -1,5 +1,5 @@
 ﻿DogHandler functionality:
--exclude dog;
+-logout
 -specialization add
 -specialization delete
 -add trainig;

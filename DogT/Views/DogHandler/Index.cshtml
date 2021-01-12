@@ -37,15 +37,16 @@
                 @Html.DisplayFor(modelItem => item.Age)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DogHandlerId)
+                @Html.DisplayFor(modelItem => item.DogHandler.Name)
+                @Html.DisplayFor(modelItem => item.DogHandler.Surname)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Specialization.Title)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="EditDog" asp-route-id="@item.Id">Редагувати інформацію</a> |
                 <a asp-action="DetailsDog" asp-route-id="@item.Id">Деталі</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="ExcludeDog" asp-route-id="@item.Id">Вилучити</a>
             </td>
         </tr>
 }

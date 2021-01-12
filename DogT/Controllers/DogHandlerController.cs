@@ -76,5 +76,88 @@ namespace DogT.Controllers
 
             return View(dog);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> EditDog(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var dog = await _context.Dogs
+                .Include(dh => dh.DogHandler)
+                .ThenInclude(u => u.User)
+                .Include(s => s.Specialization)
+                .FirstOrDefaultAsync(d => d.DogHandler.User.Email == User.Identity.Name && d.Id == id);
+
+            if (dog == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.Specializations = new SelectList(_context.Specializations.ToList(), "Id", "Title");
+
+            return View(dog);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditDog(int id, [Bind("Id", "Name", "Age", "DogHandlerId", "SpecializationId")] Dog dog)
+        {
+            if (id != dog.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                _context.Update(dog);
+                await _context.SaveChangesAsync();
+                
+                return RedirectToAction("Index");
+            }
+
+            return View(dog);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ExcludeDog(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var dog = await _context.Dogs
+                .Include(dh => dh.DogHandler)
+                .ThenInclude(u => u.User)
+                .Include(s => s.Specialization)
+                .FirstOrDefaultAsync(d => d.Id == id && d.DogHandler.User.Email == User.Identity.Name);
+
+            if (dog == null)
+            {
+                return NotFound();
+            }
+
+            return View(dog);
+        }
+
+        [HttpPost, ActionName("ExcludeDog")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ExcludeConfirmed(int id)
+        {
+            var dog = await _context.Dogs
+                .FirstOrDefaultAsync(d => d.Id == id && d.DogHandler.User.Email == User.Identity.Name);
+
+            if (dog == null)
+            {
+                return Content("Something wrong!");
+            }
+
+            _context.Dogs.Remove(dog);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
