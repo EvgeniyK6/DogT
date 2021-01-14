@@ -159,5 +159,44 @@ namespace DogT.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> Trainings()
+        {
+            var trainings = await _context.Trainings
+                .Include(dh => dh.DogHandler)
+                .ThenInclude(u => u.User)
+                .Where(t => t.DogHandler.User.Email == User.Identity.Name)
+                .ToListAsync();
+
+            return View(trainings);
+        }
+
+        [HttpGet]
+        public IActionResult AddTraining()
+        {
+            ViewBag.Dogs = new SelectList(_context.Dogs
+                .Where(d => d.DogHandler.User.Email == User.Identity.Name)
+                .ToList(), "Id", "Name");
+            
+            ViewBag.Specializations = new SelectList(_context.Specializations.ToList(), "Id", "Title");
+            
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddTraining(Training training)
+        {
+            if (ModelState.IsValid)
+            {
+                training.DogHandler = _context.DogHandlers.FirstOrDefault(d => d.User.Email == User.Identity.Name);
+                _context.Trainings.Add(training);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Trainings));
+            }
+
+            return View(training);
+        }
     }
 }

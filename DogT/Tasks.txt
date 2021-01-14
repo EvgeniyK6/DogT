@@ -1,7 +1,6 @@
 ﻿DogHandler functionality:
--logout
--specialization add
--specialization delete
+-specialization add >FOR ADMIN
+-specialization delete >FOR ADMIN
 -add trainig;
 -details training;
 -list of trainings;

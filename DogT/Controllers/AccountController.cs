@@ -122,5 +122,13 @@ namespace DogT.Controllers
                 CookieAuthenticationDefaults.AuthenticationScheme, 
                 new ClaimsPrincipal(id));
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Account");
+        }
     }
 }
