@@ -21,14 +21,15 @@ namespace DogT.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var dogs = _context.Dogs
+            var dogs = await _context.Dogs
                 .Include(d => d.DogHandler)
                 .ThenInclude(u => u.User)
                 .Include(s => s.Specialization)
                 .Where(dh => dh.DogHandler.User.Email == User.Identity.Name)
-                .ToList();
+                .AsNoTracking()
+                .ToListAsync();
             
             return View(dogs);
         }
@@ -165,6 +166,8 @@ namespace DogT.Controllers
             var trainings = await _context.Trainings
                 .Include(dh => dh.DogHandler)
                 .ThenInclude(u => u.User)
+                .Include(d => d.Dog)
+                .Include(s => s.Specialization)
                 .Where(t => t.DogHandler.User.Email == User.Identity.Name)
                 .ToListAsync();
 

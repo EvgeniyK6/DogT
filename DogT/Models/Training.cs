@@ -12,10 +12,12 @@ namespace DogT.Models
         
         [Display(Name ="Кінолог")]
         public int DogHandlerId { get; set; }
+        [Display(Name = "Кінолог")]
         public DogHandler DogHandler { get; set; }
         
         [Display(Name = "Пес")]
         public int DogId { get; set; }
+        [Display(Name = "Пес")]
         public Dog Dog { get; set; }
 
         [Display(Name = "Спеціалізація")]

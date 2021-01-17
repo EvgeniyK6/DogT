@@ -1,7 +1,9 @@
 ﻿DogHandler functionality:
 -specialization add >FOR ADMIN
 -specialization delete >FOR ADMIN
--add trainig;
+-Dinamic link two select lists;
+-Edit, details, delete training
+-TrainingTask model;
 -details training;
 -list of trainings;
 -delete training;
