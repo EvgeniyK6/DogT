@@ -15,7 +15,7 @@ namespace DogT.Controllers
     public class DogHandlerController : Controller
     {
         private readonly DogTContext _context;
-        
+
         public DogHandlerController(DogTContext context)
         {
             _context = context;
@@ -30,7 +30,7 @@ namespace DogT.Controllers
                 .Where(dh => dh.DogHandler.User.Email == User.Identity.Name)
                 .AsNoTracking()
                 .ToListAsync();
-            
+
             return View(dogs);
         }
 
@@ -47,7 +47,7 @@ namespace DogT.Controllers
         {
             if (ModelState.IsValid)
             {
-                dog.DogHandler =  _context.DogHandlers.FirstOrDefault(d => d.User.Email == User.Identity.Name); ;
+                dog.DogHandler = _context.DogHandlers.FirstOrDefault(d => d.User.Email == User.Identity.Name); ;
                 _context.Dogs.Add(dog);
                 await _context.SaveChangesAsync();
 
@@ -115,7 +115,7 @@ namespace DogT.Controllers
             {
                 _context.Update(dog);
                 await _context.SaveChangesAsync();
-                
+
                 return RedirectToAction("Index");
             }
 
@@ -180,9 +180,9 @@ namespace DogT.Controllers
             ViewBag.Dogs = new SelectList(_context.Dogs
                 .Where(d => d.DogHandler.User.Email == User.Identity.Name)
                 .ToList(), "Id", "Name");
-            
+
             ViewBag.Specializations = new SelectList(_context.Specializations.ToList(), "Id", "Title");
-            
+
             return View();
         }
 
@@ -200,6 +200,120 @@ namespace DogT.Controllers
             }
 
             return View(training);
+        }
+
+        public async Task<IActionResult> DetailsTraining(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var training = await _context.Trainings
+                .Include(dh => dh.DogHandler)
+                .ThenInclude(u => u.User)
+                .Include(d => d.Dog)
+                .Include(s => s.Specialization)
+                .FirstOrDefaultAsync(t => t.DogHandler.User.Email == User.Identity.Name && t.Id == id);
+
+            if (training == null)
+            {
+                return NotFound();
+            }
+
+            return View(training);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditTraining(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var training = await _context.Trainings
+                .Include(dh => dh.DogHandler)
+                .ThenInclude(u => u.User)
+                .Include(d => d.Dog)
+                .Include(s => s.Specialization)
+                .FirstOrDefaultAsync(t => t.DogHandler.User.Email == User.Identity.Name && t.Id == id);
+
+            if (training == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.Dogs = new SelectList(_context.Dogs
+                .Where(d => d.DogHandler.User.Email == User.Identity.Name)
+                .ToList(), "Id", "Name");
+
+            ViewBag.Specializations = new SelectList(_context.Specializations.ToList(), "Id", "Title");
+
+            return View(training);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditTraining(int id, [Bind("Id", "DogId", "DogHandlerId", "SpecializationId", "Context", "Estimate", "Date")] Training training)
+        {
+            if (id != training.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                _context.Update(training);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Trainings");
+            }
+            return View(training);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteTraining(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var training = await _context.Trainings
+                .Include(dh => dh.DogHandler)
+                .ThenInclude(u => u.User)
+                .Include(d => d.Dog)
+                .Include(s => s.Specialization)
+                .FirstOrDefaultAsync(t => t.DogHandler.User.Email == User.Identity.Name && t.Id == id);
+
+            if (training == null)
+            {
+                return NotFound();
+            }
+
+            return View(training);
+        }
+
+        [HttpPost, ActionName("DeleteTraining")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteTrainingConfirm(int id)
+        {
+            var training = await _context.Trainings
+                .Include(dh => dh.DogHandler)
+                .ThenInclude(u => u.User)
+                .Include(d => d.Dog)
+                .Include(s => s.Specialization)
+                .FirstOrDefaultAsync(t => t.DogHandler.User.Email == User.Identity.Name && t.Id == id);
+
+            if (training == null)
+            {
+                return Content("Something wrong!");
+            }
+
+            _context.Trainings.Remove(training);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Trainings));
         }
     }
 }

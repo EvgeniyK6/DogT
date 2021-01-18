@@ -1,0 +1,47 @@
+﻿@model DogT.Models.Training
+
+@{
+    ViewData["Title"] = "Видалення тренування";
+}
+
+<h3>Видалити дане тренування?</h3>
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Dog)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Dog.Name)
+        </dd class>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Specialization)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Specialization.Title)
+        </dd class>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Context)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Context)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Estimate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Estimate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+    </dl>
+    
+    <form asp-action="DeleteTraining">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Видалити" class="btn btn-danger" /> |
+        <a asp-action="Trainings">До списку тренувань</a>
+    </form>
+</div>

@@ -22,6 +22,7 @@ namespace DogT.Models
 
         [Display(Name = "Спеціалізація")]
         public int SpecializationId { get; set; }
+        [Display(Name = "Спеціалізація")]
         public Specialization Specialization { get; set; }
 
         [Display(Name = "Зміст тренування")]
