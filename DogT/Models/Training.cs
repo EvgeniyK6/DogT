@@ -31,7 +31,7 @@ namespace DogT.Models
         [Display(Name = "Результат/Оцінка")]
         public string Estimate { get; set; }
 
-        [Display(Name = "Дата проведення")]
+        [Required, Display(Name = "Дата проведення")]
         public DateTime Date { get; set; }
         public List<TrainingComment> Comments { get; set; }
     }

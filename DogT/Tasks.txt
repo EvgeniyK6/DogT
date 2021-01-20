@@ -2,6 +2,6 @@
 -specialization add >FOR ADMIN
 -specialization delete >FOR ADMIN
 -Dinamic link two select lists;
--TrainingTask model;
+-TrainingTask action;
 -comment training;
 -add photo/video file to training;

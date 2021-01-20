@@ -16,6 +16,6 @@ namespace DogT.Models
         public Position Position { get; set; }
         public List<Dog> Dogs { get; set; }
         public List<Training> Trainings { get; set; }
-
+        public List<TrainingTask> TrainingTasks { get; set; }
     }
 }

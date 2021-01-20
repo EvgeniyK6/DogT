@@ -8,45 +8,12 @@
 
 <ul>
     <li>
-        <a asp-action="AddDog">Додати нового собаку</a>
+        <a asp-action="Dogs">Закріплені собаки</a>
     </li>
     <li>
         <a asp-action="Trainings">Тренування</a>
     </li>
+    <li>
+        <a asp-action="TrainingTasks">Завдання</a>
+    </li>
 </ul>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Age)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Specialization.Title)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Specialization.Title)
-            </td>
-            <td>
-                <a asp-action="EditDog" asp-route-id="@item.Id">Редагувати інформацію</a> |
-                <a asp-action="DetailsDog" asp-route-id="@item.Id">Деталі</a> |
-                <a asp-action="ExcludeDog" asp-route-id="@item.Id">Вилучити</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>

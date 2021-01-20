@@ -25,5 +25,6 @@ namespace DogT.Models
         public Specialization Specialization { get; set; }
 
         public List<Training> Trainings { get; set; }
+        public List<TrainingTask> TrainingTasks { get; set; }
     }
 }

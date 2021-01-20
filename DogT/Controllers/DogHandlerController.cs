@@ -34,6 +34,19 @@ namespace DogT.Controllers
             return View(dogs);
         }
 
+        public async Task<IActionResult> Dogs()
+        {
+            var dogs = await _context.Dogs
+                .Include(d => d.DogHandler)
+                .ThenInclude(u => u.User)
+                .Include(s => s.Specialization)
+                .Where(dh => dh.DogHandler.User.Email == User.Identity.Name)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return View(dogs);
+        }
+
         [HttpGet]
         public IActionResult AddDog()
         {
@@ -190,6 +203,12 @@ namespace DogT.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddTraining(Training training)
         {
+            ViewBag.Dogs = new SelectList(_context.Dogs
+                .Where(d => d.DogHandler.User.Email == User.Identity.Name)
+                .ToList(), "Id", "Name");
+
+            ViewBag.Specializations = new SelectList(_context.Specializations.ToList(), "Id", "Title");
+
             if (ModelState.IsValid)
             {
                 training.DogHandler = _context.DogHandlers.FirstOrDefault(d => d.User.Email == User.Identity.Name);
@@ -315,5 +334,10 @@ namespace DogT.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Trainings));
         }
+
+        //public async Task<IActionResult> TrainingTasks()
+        //{
+
+        //}
     }
 }

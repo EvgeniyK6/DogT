@@ -19,6 +19,7 @@ namespace DogT.Data
         public DbSet<Dog> Dogs { get; set; }
         public DbSet<Specialization> Specializations { get; set; }
         public DbSet<Training> Trainings { get; set; }
+        public DbSet<TrainingTask> TrainingTasks { get; set; }
         public DbSet<TrainingComment> TrainingComments { get; set; }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder)
@@ -62,6 +63,18 @@ namespace DogT.Data
             modelBuilder.Entity<Training>()
                 .HasOne(d => d.Dog)
                 .WithMany(t => t.Trainings)
+                .HasForeignKey(fk => fk.DogId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<TrainingTask>()
+                .HasOne(dh => dh.DogHandler)
+                .WithMany(tt => tt.TrainingTasks)
+                .HasForeignKey(fk => fk.DogHandlerId)
+                .OnDelete(DeleteBehavior.NoAction);
+            
+            modelBuilder.Entity<TrainingTask>()
+                .HasOne(dh => dh.Dog)
+                .WithMany(tt => tt.TrainingTasks)
                 .HasForeignKey(fk => fk.DogId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
