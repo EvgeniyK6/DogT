@@ -335,9 +335,16 @@ namespace DogT.Controllers
             return RedirectToAction(nameof(Trainings));
         }
 
-        //public async Task<IActionResult> TrainingTasks()
-        //{
+        public async Task<IActionResult> TrainingTasks()
+        {
+            var tasks = await _context.TrainingTasks
+                .Include(dh => dh.DogHandler)
+                .ThenInclude(u => u.User)
+                .Include(d => d.Dog)
+                .Where(dh => dh.DogHandler.User.Email == User.Identity.Name)
+                .ToListAsync();
 
-        //}
+            return View(tasks);
+        }
     }
 }
