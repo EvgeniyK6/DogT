@@ -12,7 +12,7 @@ namespace DogT.Models
         public Training Training { get; set; }
         public int DogHandlerId { get; set; }
         public DogHandler DogHandler { get; set; }
-        public string Context { get; set; }
+        public string CommentContext { get; set; }
         public DateTime Date { get; set; }
     }
 }

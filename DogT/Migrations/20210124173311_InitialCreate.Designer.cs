@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DogT.Migrations
 {
     [DbContext(typeof(DogTContext))]
-    [Migration("20210120205124_TrainingTaskModel")]
-    partial class TrainingTaskModel
+    [Migration("20210124173311_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -161,7 +161,7 @@ namespace DogT.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Context")
+                    b.Property<string>("CommentContext")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Date")

@@ -159,7 +159,7 @@ namespace DogT.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Context")
+                    b.Property<string>("CommentContext")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Date")

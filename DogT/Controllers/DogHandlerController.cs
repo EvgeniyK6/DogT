@@ -8,6 +8,7 @@ using DogT.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using DogT.ViewModels;
 
 namespace DogT.Controllers
 {
@@ -233,6 +234,7 @@ namespace DogT.Controllers
                 .ThenInclude(u => u.User)
                 .Include(d => d.Dog)
                 .Include(s => s.Specialization)
+                .Include(c => c.Comments)
                 .FirstOrDefaultAsync(t => t.DogHandler.User.Email == User.Identity.Name && t.Id == id);
 
             if (training == null)
@@ -240,7 +242,19 @@ namespace DogT.Controllers
                 return NotFound();
             }
 
-            return View(training);
+            TrainingViewModel viewModel = new TrainingViewModel
+            {
+                Id = training.Id,
+                Dog = training.Dog,
+                DogHandler = training.DogHandler,
+                Specialization = training.Specialization,
+                Context = training.Context,
+                Date = training.Date,
+                Comments = training.Comments,
+                Estimate = training.Estimate
+            };
+
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -345,6 +359,51 @@ namespace DogT.Controllers
                 .ToListAsync();
 
             return View(tasks);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> TaskCompleted(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var task = await _context.TrainingTasks.FirstOrDefaultAsync(t => t.Id == id);
+
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            task.IsCompleted = true;
+
+            _context.Update(task);
+            _context.SaveChanges();
+
+            return RedirectToAction("TrainingTasks", "DogHandler");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> LiveComment(int id, [Bind("CommentContext")] TrainingComment comment)
+        {
+            if (ModelState.IsValid)
+            {
+                comment.TrainingId = id;
+                comment.DogHandler = await _context.DogHandlers
+                    .Include(s => s.User)
+                    .FirstOrDefaultAsync(u => u.User.Email == User.Identity.Name);
+                comment.Date = DateTime.Now;
+                
+                _context.TrainingComments.Add(comment);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("DetailsTraining", "DogHandler", new { id = id });
+            }
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }
