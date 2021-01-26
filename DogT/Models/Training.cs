@@ -34,5 +34,8 @@ namespace DogT.Models
         [Required, Display(Name = "Дата проведення")]
         public DateTime Date { get; set; }
         public List<TrainingComment> Comments { get; set; }
+
+        public string FileName { get; set; }
+        public string FilePath { get; set; }
     }
 }

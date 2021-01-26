@@ -1,5 +1,3 @@
 ﻿DogHandler functionality:
 -specialization add >FOR ADMIN
 -specialization delete >FOR ADMIN
--comment training;
--add photo/video file to training;

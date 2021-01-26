@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using DogT.ViewModels;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace DogT.Controllers
 {
@@ -16,10 +19,12 @@ namespace DogT.Controllers
     public class DogHandlerController : Controller
     {
         private readonly DogTContext _context;
+        IWebHostEnvironment _appEnvironment;
 
-        public DogHandlerController(DogTContext context)
+        public DogHandlerController(DogTContext context, IWebHostEnvironment appEnvironment)
         {
             _context = context;
+            _appEnvironment = appEnvironment;
         }
 
         public async Task<IActionResult> Index()
@@ -202,7 +207,7 @@ namespace DogT.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddTraining(Training training)
+        public async Task<IActionResult> AddTraining(Training training, IFormFile formFile)
         {
             ViewBag.Dogs = new SelectList(_context.Dogs
                 .Where(d => d.DogHandler.User.Email == User.Identity.Name)
@@ -213,6 +218,20 @@ namespace DogT.Controllers
             if (ModelState.IsValid)
             {
                 training.DogHandler = _context.DogHandlers.FirstOrDefault(d => d.User.Email == User.Identity.Name);
+
+                if (formFile != null)
+                {
+                    string path = "/Videos/" + formFile.FileName;
+
+                    using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await formFile.CopyToAsync(fileStream);
+                    }
+
+                    training.FileName = formFile.FileName;
+                    training.FilePath = path;
+                }
+
                 _context.Trainings.Add(training);
                 await _context.SaveChangesAsync();
 

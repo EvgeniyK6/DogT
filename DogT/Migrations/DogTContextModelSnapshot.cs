@@ -138,6 +138,12 @@ namespace DogT.Migrations
                     b.Property<string>("Estimate")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("SpecializationId")
                         .HasColumnType("int");
 
