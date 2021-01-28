@@ -1,0 +1,43 @@
+﻿@model DogT.Models.Dog
+
+@{
+    ViewData["Title"] = "Вилучити собаку";
+}
+
+<h4>Ви дійсно хочете списати цього собаки?</h4>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DogHandler)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DogHandler.Name)
+            @Html.DisplayFor(model => model.DogHandler.Surname)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Specialization)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Specialization.Title)
+        </dd>
+    </dl>
+
+    <form asp-action="ExcludeDog">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Списати" class="btn btn-danger" /> |
+        <a asp-action="Dogs">Назад</a>
+    </form>
+</div>

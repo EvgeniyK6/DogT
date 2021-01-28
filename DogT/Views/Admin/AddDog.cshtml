@@ -1,17 +1,15 @@
 ﻿@model DogT.Models.Dog
 
 @{
-    ViewData["Title"] = "Редагувати інформацію про собаку";
+    ViewData["Title"] = "Додати службового собаку";
 }
 
-<h4>Редагувати інформацію про собаку</h4>
+<h4>Додати собаку</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="EditDog">
+        <form asp-action="AddDog">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" value="@Model.Id"/>
-            <input type="hidden" asp-for="DogHandlerId" value="@Model.DogHandlerId"/>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -22,18 +20,16 @@
                 <input asp-for="Age" class="form-control" />
                 <span asp-validation-for="Age" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                <label asp-for="DogHandlerId" class="control-label"></label>
-                <select asp-for="DogHandlerId" class="form-control" asp-items="ViewBag.DogHandlerId"></select>
-                <span asp-validation-for="DogHandlerId" class="text-danger"></span>
-            </div>*@
             <div class="form-group">
-                <label asp-for="SpecializationId" class="control-label"></label>
-                <select asp-for="SpecializationId" class="form-control" asp-items="ViewBag.Specializations"></select>
-                <span asp-validation-for="SpecializationId" class="text-danger"></span>
+                <label asp-for="DogHandlerId" class="control-label"></label>
+                <select asp-for="DogHandlerId" class ="form-control" asp-items="ViewBag.DogHandlers"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <label asp-for="SpecializationId" class="control-label"></label>
+                <select asp-for="SpecializationId" class ="form-control" asp-items="ViewBag.Specializations"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Додати" class="btn btn-primary" />
             </div>
         </form>
     </div>

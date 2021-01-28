@@ -1,0 +1,53 @@
+﻿@model IEnumerable<DogT.Models.Dog>
+
+@{
+    ViewData["Title"] = "Список службових собак";
+}
+
+<h4>Список службових собак</h4>
+
+<p>
+    <a asp-action="AddDog">Додати службового собаку</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DogHandler)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Specialization)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <a asp-action="DetailsDog" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DogHandler.Name)
+                @Html.DisplayFor(modelItem => item.DogHandler.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Specialization.Title)
+            </td>
+            <td>
+                <a asp-action="EditDog" asp-route-id="@item.Id">Редагувати інформацію</a> |
+                <a asp-action="ExcludeDog" asp-route-id="@item.Id">Списати</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

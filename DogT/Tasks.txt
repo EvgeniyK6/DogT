@@ -1,3 +1,9 @@
 ﻿DogHandler functionality:
 -specialization add >FOR ADMIN
 -specialization delete >FOR ADMIN
+-list of tasks
+-task creation
+-task deletion
+-task marked as done
+-dog list with filtering by specialization
+-trainings

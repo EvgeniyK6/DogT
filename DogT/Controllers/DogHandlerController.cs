@@ -135,7 +135,7 @@ namespace DogT.Controllers
                 _context.Update(dog);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Dogs");
             }
 
             return View(dog);
