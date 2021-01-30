@@ -69,3 +69,19 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+/*My style*/
+.logout_block {
+    align-self: center;
+}
+
+.logout_block button {
+    border: none;
+    border-radius: 6px;
+}
+
+.logout_block button:hover {
+    background: #ff6c6c;
+    transition: all 0.2s ease;
+    color: #fff;
+}

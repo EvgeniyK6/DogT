@@ -32,6 +32,15 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Specialization.Title)
         </dd>
+        <dt>
+            Тренування:
+        </dt>
+        <dd>
+            @foreach (var item in Model.Trainings)
+            {
+                <p>@item.Context</p>
+            }
+        </dd>
     </dl>
 </div>
 <div>

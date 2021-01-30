@@ -21,11 +21,11 @@ namespace DogT.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var dogHandlers = _context.DogHandlers
+            var dogHandlers = await _context.DogHandlers
                 .Include(d => d.Dogs)
-                .ToList();
+                .ToListAsync();
             return View(dogHandlers);
         }
 
@@ -153,6 +153,7 @@ namespace DogT.Controllers
             var dog = await _context.Dogs
                 .Include(dh => dh.DogHandler)
                 .Include(s => s.Specialization)
+                .Include(t => t.Trainings)
                 .FirstOrDefaultAsync(d => d.Id == id);
 
             if (dog == null)
