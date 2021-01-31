@@ -66,7 +66,14 @@ namespace DogT.Controllers
 
                     await Authenticate(user);
 
-                    return RedirectToAction("Index", "Home");
+                    if (user.Role.Title == "Адміністратор")
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "DogHandler");
+                    }
                 }
                 else
                 {
@@ -96,7 +103,14 @@ namespace DogT.Controllers
                 {
                     await Authenticate(user);
 
-                    return RedirectToAction("Index", "Home");
+                    if (user.Role.Title == "Адміністратор")
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "DogHandler");
+                    }
                 }
 
                 ModelState.AddModelError("", "Невірні логін та(чи) пароль");

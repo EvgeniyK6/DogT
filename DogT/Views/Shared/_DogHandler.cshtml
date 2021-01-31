@@ -12,7 +12,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Кінологічний центр онлайн</a>
+                <a class="navbar-brand" asp-area="" asp-controller="DogHandler" asp-action="Index">Кінологічний центр онлайн</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -22,19 +22,16 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Dogs">Собаки</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="DogHandler" asp-action="Dogs">Собаки</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Dogs">Кінологи</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="DogHandler" asp-action="Dogs">Тренування</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Dogs">Тренування</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="DogHandler" asp-action="Dogs">Завдання</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Dogs">Завдання</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Dogs">Новини/пропозиції</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="DogHandler" asp-action="Dogs">Новини/пропозиції</a>
                             </li>
 
                             <li class="nav-item logout_block">
@@ -58,7 +55,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - DogT - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; @DateTime.Now.Year - Онлайн кінологічна платформа
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -68,3 +65,4 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+

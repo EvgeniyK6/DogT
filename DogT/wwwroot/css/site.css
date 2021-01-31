@@ -85,3 +85,18 @@ body {
     transition: all 0.2s ease;
     color: #fff;
 }
+
+.nav-item:hover {
+    text-decoration: underline;
+}
+
+.authorization {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.account_head {
+    margin-bottom: 1.2em;
+}
