@@ -3,48 +3,47 @@
 
 @{
     ViewData["Title"] = "Реєстрація";
+    Layout = "_Authorization";
 }
 
-<h3>Реєстрація</h3>
+<div class="account">
+    <h4 class="account_head">Вас вітає кінологічна платформа</h4>
 
-<form asp-action="Register" asp-controller="Account" asp-anti-forgery="true">
-    <div class="validation" asp-validation-summary="ModelOnly"></div>
     <div>
-        <div>
-            <label asp-for="Email">Емейл</label><br />
-            <input type="text" asp-for="Email" />
-            <span asp-validation-for="Email" />
-        </div>
-        <div>
-            <label asp-for="Password">Пароль</label><br />
-            <input asp-for="Password" />
-            <span asp-validation-for="Password" />
-        </div>
-        <div>
-            <label asp-for="ConfirmPassword">Підтвердження паролю</label><br />
-            <input asp-for="ConfirmPassword" />
-            <span asp-validation-for="ConfirmPassword" />
-        </div>
-        <div>
-            <label asp-for="Name">Ім'я</label><br />
-            <input asp-for="Name" />
-            <span asp-validation-for="Name" />
-        </div>
-        <div>
-            <label asp-for="Surname">Прізвище</label><br />
-            <input asp-for="Surname" />
-            <span asp-validation-for="Surname" />
-        </div>
-        <div>
-            <label asp-for="Position">Обери позицію</label><br />
-            <select asp-for="Position" asp-items="Html.GetEnumSelectList<Position>()">
-                <option>Позиція...</option>
-            </select>
-            <span asp-validation-for="Position" />
-        </div>
-       
-        <div>
-            <input type="submit" value="Реєстрація" />
-        </div>
+        <form asp-action="Register" asp-controller="Account" asp-anti-forgery="true">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="Email" placeholder="Емейл" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Password" placeholder="Пароль" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="ConfirmPassword" placeholder="Підтвердження паролю" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Name" placeholder="Ім'я" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Surname" placeholder="Прізвище" class="form-control" />
+                <span asp-validation-for="Surname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <select class="form-control" asp-for="Position" asp-items="Html.GetEnumSelectList<Position>()">
+                    <option>Позиція...</option>
+                </select>
+                <span asp-validation-for="Position" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Реєстрація" class="btn btn-primary" />
+            </div>
+        </form>
+        <a asp-controller="Account" asp-action="Login">Авторизація</a>
     </div>
-</form>
+
+</div>

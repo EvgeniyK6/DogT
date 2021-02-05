@@ -5,37 +5,40 @@
     Layout = "_DogHandler";
 }
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Age)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Age)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DogHandler)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DogHandler.Name)
-            @Html.DisplayFor(model => model.DogHandler.Surname)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Specialization)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Specialization.Title)
-        </dd>
-    </dl>
+<div class="dog_details">
+    <div class="dog_img">
+        <i class="fas fa-dog empty_dog_img"></i>
+    </div>
+    <div class="dog_info">
+        <h4 class="dog_name">@Model.Name</h4>
+        <span class="dog_details_age">@Model.Age</span>
+        <span class="dog_details_specialization">@Model.Specialization.Title</span>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+<div class="dog_menu">
+    <a asp-action="Dogs" class="dog">
+        <div class="dog_img">
+            <i class="fas fa-ellipsis-h empty_dog_img"></i>
+        </div>
+        <h6 class="dog_title">До списку собак</h6>
+    </a>
+    <a asp-action="AddTraining" class="dog">
+        <div class="dog_img">
+            <i class="fas fa-plus empty_dog_img"></i>
+        </div>
+        <h6 class="dog_title">Додати тренування</h6>
+    </a>
+    <a asp-action="EditDog" asp-route-id="@Model.Id" class="dog">
+        <div class="dog_img">
+            <i class="fas fa-pencil-alt empty_dog_img"></i>
+        </div>
+        <h6 class="dog_title">Редагувати</h6>
+    </a>
+    <a asp-action="ExcludeDog" asp-route-id="@Model.Id" class="dog">
+        <div class="dog_img">
+            <i class="fas fa-minus-circle empty_dog_img"></i>
+        </div>
+        <h6 class="dog_title">Вилучити</h6>
+    </a>
 </div>

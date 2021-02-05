@@ -12,28 +12,32 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="DogHandler" asp-action="Index">Кінологічний центр онлайн</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1 justify-content-around">
+                <div class="navbar-collapse collapse d-sm-inline-flex">
+                    <ul class="navbar-nav flex-grow-1">
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="DogHandler" asp-action="Dogs">Собаки</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="DogHandler" asp-action="Dogs">Тренування</a>
+                                <div class="page_seperator"></div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="DogHandler" asp-action="Dogs">Завдання</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="DogHandler" asp-action="Trainings">Тренування</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="DogHandler" asp-action="Dogs">Новини/пропозиції</a>
+                                <div class="page_seperator"></div>
                             </li>
-
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="DogHandler" asp-action="TrainingTasks">Завдання</a>
+                            </li>
+                            <li class="nav-item">
+                                <div class="page_seperator"></div>
+                            </li>
                             <li class="nav-item logout_block">
                                 <form asp-controller="Account" asp-action="Logout">
                                     <button type="submit">

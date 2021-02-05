@@ -100,3 +100,81 @@ body {
 .account_head {
     margin-bottom: 1.2em;
 }
+
+.navbar-nav {
+    justify-content: center;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+}
+
+.nav-link {
+    font-weight: 600;
+}
+
+.page_seperator {
+    width: 40px;
+    height: 2px;
+    background: dodgerblue;
+    margin: 0px 16px;
+}
+
+.dogs {
+    display: flex;
+    justify-content: center;
+}
+
+.dog {
+    display: flex;
+    align-items: center;
+    margin: 14px;
+}
+
+.dog_img {
+    display: flex;
+    width: 60px;
+    height: 60px;
+    align-items: center;
+    justify-content: center;
+    background: #e8e8e8;
+    border-radius: 50%;
+}
+
+.dog_title {
+    margin: 0px 12px;
+}
+
+.empty_dog_img {
+    font-size: 24px;
+    color: gray;
+}
+
+.dog_details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dog_info {
+    display: flex;
+}
+
+.dog_details .dog_img {
+    width: 100px;
+    height: 100px;
+    margin-right: 12px;
+}
+
+.dog_details .fa-dog {
+    font-size: 36px;
+}
+
+.dog_details_age {
+    margin: 0px 6px;
+}
+
+.dog_menu {
+    display: flex;
+}

@@ -8,3 +8,4 @@
 -dogs filtering and pagination (list with filtering by specialization)
 -list of trainings
 -inner view of pages
+-add trainings to dog details <<<<<
