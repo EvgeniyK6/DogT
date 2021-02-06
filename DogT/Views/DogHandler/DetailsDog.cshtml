@@ -11,7 +11,19 @@
     </div>
     <div class="dog_info">
         <h4 class="dog_name">@Model.Name</h4>
-        <span class="dog_details_age">@Model.Age</span>
+        @if (Model.Age == 1)
+        {
+            <span class="dog_details_age">@Model.Age рік</span>
+        }
+        else if (Model.Age == 2 || Model.Age == 3)
+        {
+            <span class="dog_details_age">@Model.Age роки</span>
+        }
+        else
+        {
+            <span class="dog_details_age">@Model.Age років</span>
+        }
+
         <span class="dog_details_specialization">@Model.Specialization.Title</span>
     </div>
 </div>
@@ -41,4 +53,30 @@
         </div>
         <h6 class="dog_title">Вилучити</h6>
     </a>
+</div>
+
+<div class="trainings">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Дата заняття</th>
+                <th scope="col">Результат/Оцінка</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ 
+                var num = 1;
+            }
+            @foreach (var training in Model.Trainings)
+            {
+                <tr>
+                    <th scope="row">@num</th>
+                    <td><a asp-action="DetailsTraining" asp-route-id="@training.Id">@training.Date</a></td>
+                    <td>@training.Estimate</td>
+                </tr>
+                num++;
+            }
+        </tbody>
+    </table>
 </div>

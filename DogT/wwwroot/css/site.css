@@ -173,8 +173,14 @@ body {
 
 .dog_details_age {
     margin: 0px 6px;
+    color: #ef4272;
+}
+
+.dog_details_specialization {
+    color: dodgerblue;
 }
 
 .dog_menu {
     display: flex;
+    justify-content: center;
 }

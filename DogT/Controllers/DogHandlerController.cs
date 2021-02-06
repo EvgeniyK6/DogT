@@ -87,6 +87,7 @@ namespace DogT.Controllers
                 .Include(dh => dh.DogHandler)
                 .ThenInclude(u => u.User)
                 .Include(s => s.Specialization)
+                .Include(t => t.Trainings)
                 .FirstOrDefaultAsync(d => d.DogHandler.User.Email == User.Identity.Name && d.Id == id);
 
             if (dog == null)
@@ -218,6 +219,8 @@ namespace DogT.Controllers
             if (ModelState.IsValid)
             {
                 training.DogHandler = _context.DogHandlers.FirstOrDefault(d => d.User.Email == User.Identity.Name);
+                var dog = await _context.Dogs.FirstOrDefaultAsync(d => d.Id == training.DogId);
+                training.Specialization = dog.Specialization;
 
                 if (formFile != null)
                 {
