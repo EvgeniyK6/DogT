@@ -16,10 +16,20 @@
     @foreach (var dog in Model)
     {
         <a class="dog" asp-action="DetailsDog" asp-route-id="@dog.Id">
-            <div class="dog_img">
-                <i class="fas fa-dog empty_dog_img"></i>
-            </div>
-            <h6 class="dog_title">@dog.Name</h6>
+            @if (dog.Avatar == null)
+            {
+                <div class="dog_img">
+                    <i class="fas fa-dog empty_dog_img"></i>
+                </div>
+                <h6 class="dog_title">@dog.Name</h6>
+            }
+            else
+            {
+                <div class="dog_img dog_img_set"
+                     style="background-image: url(@dog.AvatarPath)">
+                </div>
+                <h6 class="dog_title">@dog.Name</h6>
+            }
         </a>
     }
 </div>

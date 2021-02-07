@@ -28,5 +28,7 @@ namespace DogT.Models
 
         public List<Training> Trainings { get; set; }
         public List<TrainingTask> TrainingTasks { get; set; }
+        public string Avatar { get; set; }
+        public string AvatarPath { get; set; }
     }
 }

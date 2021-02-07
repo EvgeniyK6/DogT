@@ -6,9 +6,19 @@
 }
 
 <div class="dog_details">
-    <div class="dog_img">
-        <i class="fas fa-dog empty_dog_img"></i>
-    </div>
+    @if (Model.Avatar == null)
+    {
+        <div class="dog_img">
+            <i class="fas fa-dog empty_dog_img"></i>
+        </div>
+    }
+    else
+    {
+        <div class="dog_img dog_img_set" 
+             style="background-image: url(@Model.AvatarPath)">
+        </div>
+    }
+
     <div class="dog_info">
         <h4 class="dog_name">@Model.Name</h4>
         @if (Model.Age == 1)
@@ -65,17 +75,26 @@
             </tr>
         </thead>
         <tbody>
-            @{ 
-                var num = 1;
-            }
-            @foreach (var training in Model.Trainings)
+            @if (Model.Trainings.Count == 0)
             {
                 <tr>
-                    <th scope="row">@num</th>
-                    <td><a asp-action="DetailsTraining" asp-route-id="@training.Id">@training.Date</a></td>
-                    <td>@training.Estimate</td>
+                    <td>Тренування відсутні</td>
                 </tr>
-                num++;
+            }
+            else
+            {
+                
+                var num = 1;
+                
+                foreach (var training in Model.Trainings)
+                {
+                    <tr>
+                        <th scope="row">@num</th>
+                        <td><a asp-action="DetailsTraining" asp-route-id="@training.Id">@training.Date</a></td>
+                        <td>@training.Estimate</td>
+                    </tr>
+                    num++;
+                }
             }
         </tbody>
     </table>

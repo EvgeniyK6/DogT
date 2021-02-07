@@ -62,11 +62,25 @@ namespace DogT.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddDog(Dog dog)
+        public async Task<IActionResult> AddDog(Dog dog, IFormFile formFile)
         {
             if (ModelState.IsValid)
             {
                 dog.DogHandler = _context.DogHandlers.FirstOrDefault(d => d.User.Email == User.Identity.Name); ;
+
+                if (formFile != null)
+                {
+                    string path = "/Avatars/" + formFile.FileName;
+
+                    using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await formFile.CopyToAsync(fileStream);
+                    }
+
+                    dog.Avatar = formFile.FileName;
+                    dog.AvatarPath = path;
+                }
+
                 _context.Dogs.Add(dog);
                 await _context.SaveChangesAsync();
 
@@ -178,7 +192,7 @@ namespace DogT.Controllers
 
             _context.Dogs.Remove(dog);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Dogs));
         }
 
         public async Task<IActionResult> Trainings()

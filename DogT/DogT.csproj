@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Videos\" />
+    <Folder Include="wwwroot\Avatars\" />
   </ItemGroup>
 
 </Project>

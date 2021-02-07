@@ -142,6 +142,11 @@ body {
     border-radius: 50%;
 }
 
+.dog_img_set {
+    background-size: cover;
+    background-position: center;
+}
+
 .dog_title {
     margin: 0px 12px;
 }

@@ -8,4 +8,3 @@
 -dogs filtering and pagination (list with filtering by specialization ADMIN)
 -filtering and sorting list of trainings in dog details <<<
 -training details page<<<
--adding photo of dog to dog profile<<<
