@@ -25,13 +25,13 @@ namespace DogT.Models
         [Display(Name = "Спеціалізація")]
         public Specialization Specialization { get; set; }
 
-        [Display(Name = "Зміст тренування")]
+        [Display(Name = "Зміст")]
         public string Context { get; set; }
 
-        [Display(Name = "Результат/Оцінка")]
+        [Display(Name = "Результат")]
         public string Estimate { get; set; }
 
-        [Required, Display(Name = "Дата проведення")]
+        [Required, Display(Name = "Дата")]
         public DateTime Date { get; set; }
         public List<TrainingComment> Comments { get; set; }
 

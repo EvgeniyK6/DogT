@@ -5,55 +5,58 @@
     Layout = "_DogHandler";
 }
 
-<h4>Опис тренування</h4>
+<div class="training_details">
+    <div class="training_detail">
+        <div class="dog_info">
+            <h3 class="dog_name">@Model.Dog.Name</h3>
+        </div>
+    </div>
+    <a asp-action="DetailsDog" asp-route-id="@Model.Dog.Id" class="dog">
+        <div class="dog_img">
+            <i class="fas fa-ellipsis-h empty_dog_img"></i>
+        </div>
+        <h6 class="dog_title">До списку тренувань</h6>
+    </a>
+    <div class="training_detail">
+        <h5 class="training_detail_title">
+            Дата
+        </h5>
+        <p>
+            @Model.Date
+        </p>
+    </div>
+    <div class="training_detail">
+        <h5 class="training_detail_title">
+            Зміст
+        </h5>
+        <p>
+            @Model.Context
+        </p>
+    </div>
+    <div class="training_detail">
+        <h5 class="training_detail_title">
+            Оцінка
+        </h5>
+        <p>
+            @Model.Estimate
+        </p>
+    </div>
+    <div class="training_detail">
+        <video class="training_video" controls>
+            <source src="@Model.FilePath" type="video/mp4" />
+        </video>
+    </div>
 
-<div>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Dog)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Dog.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Specialization)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Specialization.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Context)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Context)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Estimate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Estimate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-    </dl>
     <h6>Коментарі до тренування: </h6>
-    
+
     @foreach (var item in Model.Comments)
     {
         <p>@item.CommentContext - @item.Date</p>
     }
 
     <form asp-action="LiveComment" asp-route-id="@Model.Id">
-        <input type="text" asp-for="CommentContext"/>
+        <input type="text" asp-for="CommentContext" />
         <input type="submit" value="Коментувати" />
     </form>
 
-</div>
-<div>
-    <a asp-action="EditTraining" asp-route-id="@Model.Id">Редагувати</a> |
-    <a asp-action="Trainings">До списку тренувань</a>
 </div>

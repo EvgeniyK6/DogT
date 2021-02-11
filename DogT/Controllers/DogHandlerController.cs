@@ -287,7 +287,9 @@ namespace DogT.Controllers
                 Context = training.Context,
                 Date = training.Date,
                 Comments = training.Comments,
-                Estimate = training.Estimate
+                Estimate = training.Estimate,
+                FileName = training.FileName,
+                FilePath = training.FilePath
             };
 
             return View(viewModel);

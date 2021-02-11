@@ -178,7 +178,7 @@ body {
 
 .dog_details_age {
     margin: 0px 6px;
-    color: #ef4272;
+    color: #6c757d;
 }
 
 .dog_details_specialization {
@@ -187,5 +187,41 @@ body {
 
 .dog_menu {
     display: flex;
+    justify-content: center;
+}
+
+.training_table_num {
+    width: 80px;
+}
+
+.training_table_date {
+    width: 180px;
+}
+
+.training_details {
+    margin: 20px 0px;
+}
+
+.training_details .dog {
+    justify-content: center;
+}
+
+.training_detail {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0px;
+    flex-direction: column;
+}
+
+.training_detail_title {
+    background: #ececec;
+    padding: 10px 6px;
+}
+
+.training_video {
+    max-width: 480px;
+}
+
+.training_detail .dog_info {
     justify-content: center;
 }

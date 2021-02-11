@@ -38,5 +38,8 @@ namespace DogT.ViewModels
 
         [Display(Name="Коментар")]
         public string CommentContext { get; set; }
+
+        public string FileName { get; set; }
+        public string FilePath { get; set; }
     }
 }
