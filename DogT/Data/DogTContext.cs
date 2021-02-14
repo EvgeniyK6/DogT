@@ -58,13 +58,25 @@ namespace DogT.Data
                 .HasOne(t => t.Training)
                 .WithMany(s => s.Comments)
                 .HasForeignKey(sk => sk.TrainingId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<TrainingComment>()
+                .HasOne(dh => dh.DogHandler)
+                .WithMany(tc => tc.TrainingComments)
+                .HasForeignKey(fk => fk.DogHandlerId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Training>()
                 .HasOne(d => d.Dog)
                 .WithMany(t => t.Trainings)
                 .HasForeignKey(fk => fk.DogId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<DogHandler>()
+                .HasMany(d => d.Dogs)
+                .WithOne(dh => dh.DogHandler)
+                .HasForeignKey(fk => fk.DogHandlerId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<TrainingTask>()
                 .HasOne(dh => dh.DogHandler)
@@ -76,7 +88,7 @@ namespace DogT.Data
                 .HasOne(dh => dh.Dog)
                 .WithMany(tt => tt.TrainingTasks)
                 .HasForeignKey(fk => fk.DogId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -225,3 +225,30 @@ body {
 .training_detail .dog_info {
     justify-content: center;
 }
+
+.comment_form {
+    margin: 36px 0px;
+}
+
+.comments_title {
+    margin: 20px 0px;
+}
+
+.comment_author {
+    display: flex;
+    align-items: center;
+}
+
+.comment_author_name_and_date {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 10px;
+}
+
+.comment_date {
+    font-size: 12px;
+}
+
+.comment_context {
+    margin: 10px 0px;
+}

@@ -4,14 +4,16 @@ using DogT.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DogT.Migrations
 {
     [DbContext(typeof(DogTContext))]
-    partial class DogTContextModelSnapshot : ModelSnapshot
+    [Migration("20210213214238_DogDeleteBehavior3")]
+    partial class DogDeleteBehavior3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

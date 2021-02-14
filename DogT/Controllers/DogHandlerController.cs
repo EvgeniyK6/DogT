@@ -138,7 +138,7 @@ namespace DogT.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditDog(int id, [Bind("Id", "Name", "Age", "DogHandlerId", "SpecializationId")] Dog dog)
+        public async Task<IActionResult> EditDog(int id, [Bind("Id", "Name", "Age", "DogHandlerId", "SpecializationId", "Avatar", "AvatarPath")] Dog dog)
         {
             if (id != dog.Id)
             {
@@ -150,7 +150,7 @@ namespace DogT.Controllers
                 _context.Update(dog);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("Dogs");
+                return RedirectToAction("DetailsDog", new { id = dog.Id});
             }
 
             return View(dog);

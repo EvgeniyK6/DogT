@@ -4,14 +4,16 @@ using DogT.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DogT.Migrations
 {
     [DbContext(typeof(DogTContext))]
-    partial class DogTContextModelSnapshot : ModelSnapshot
+    [Migration("20210213212536_DogDeleteBehavior2")]
+    partial class DogDeleteBehavior2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -138,7 +140,7 @@ namespace DogT.Migrations
                     b.Property<int>("DogHandlerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("DogId")
+                    b.Property<int?>("DogId")
                         .HasColumnType("int");
 
                     b.Property<string>("Estimate")
@@ -299,8 +301,7 @@ namespace DogT.Migrations
                     b.HasOne("DogT.Models.Dog", "Dog")
                         .WithMany("Trainings")
                         .HasForeignKey("DogId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DogT.Models.Specialization", "Specialization")
                         .WithMany("Trainings")
@@ -318,15 +319,15 @@ namespace DogT.Migrations
             modelBuilder.Entity("DogT.Models.TrainingComment", b =>
                 {
                     b.HasOne("DogT.Models.DogHandler", "DogHandler")
-                        .WithMany("TrainingComments")
+                        .WithMany()
                         .HasForeignKey("DogHandlerId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DogT.Models.Training", "Training")
                         .WithMany("Comments")
                         .HasForeignKey("TrainingId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("DogHandler");
@@ -372,8 +373,6 @@ namespace DogT.Migrations
             modelBuilder.Entity("DogT.Models.DogHandler", b =>
                 {
                     b.Navigation("Dogs");
-
-                    b.Navigation("TrainingComments");
 
                     b.Navigation("Trainings");
 

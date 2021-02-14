@@ -47,16 +47,31 @@
         </video>
     </div>
 
-    <h6>Коментарі до тренування: </h6>
+    <h3 class="comments_title">Коментарі до тренування: </h3>
 
-    @foreach (var item in Model.Comments)
+    @foreach (var comment in Model.Comments)
     {
-        <p>@item.CommentContext - @item.Date</p>
+        <div class="comment">
+            <div class="comment_author">
+                <div class="dog_img">
+                    <i class="fas fa-dog empty_dog_img"></i>
+                </div>
+                <div class="comment_author_name_and_date">
+                    <h6 class="doghandler_title">@comment.DogHandler.Name @comment.DogHandler.Surname</h6>
+                    <p class="comment_date">@comment.Date</p>
+                </div>
+            </div>
+            <p class="comment_context">@comment.CommentContext</p>
+        </div>
     }
 
-    <form asp-action="LiveComment" asp-route-id="@Model.Id">
-        <input type="text" asp-for="CommentContext" />
-        <input type="submit" value="Коментувати" />
+    <form asp-action="LiveComment" asp-route-id="@Model.Id" class="comment_form">
+        <div class="form-group">
+            <textarea asp-for="CommentContext" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Коментувати" class="btn btn-primary" />
+        </div>
     </form>
 
 </div>
