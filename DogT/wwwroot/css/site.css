@@ -91,7 +91,7 @@ body {
 }
 
 .authorization {
-    height: 100vh;
+    height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -226,6 +226,10 @@ body {
     justify-content: center;
 }
 
+.comment {
+    margin: 24px 0px;
+}
+
 .comment_form {
     margin: 36px 0px;
 }
@@ -251,4 +255,22 @@ body {
 
 .comment_context {
     margin: 10px 0px;
+}
+
+.page_title {
+    display: flex;
+    justify-content: center;
+    margin: 26px 0px;
+}
+
+.task_completed {
+    background: #bfffb8;
+}
+
+.task_failed {
+    background: #ffb8b8;
+}
+
+.task_uncompleted {
+    background: #fff9b8;
 }

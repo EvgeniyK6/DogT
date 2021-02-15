@@ -252,7 +252,7 @@ namespace DogT.Controllers
                 _context.Trainings.Add(training);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction(nameof(Trainings));
+                return RedirectToAction(nameof(DetailsDog), new { id = training.Dog.Id});
             }
 
             return View(training);

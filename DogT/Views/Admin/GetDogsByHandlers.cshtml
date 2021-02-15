@@ -1,0 +1,10 @@
+﻿@model IEnumerable<DogT.Models.Dog>
+
+<div class="form-group">
+    <select id="dogs_select" name="DogId" class="form-control">
+        @foreach (var dog in Model)
+        {
+            <option value="@dog.Id">@dog.Name</option>
+        }
+    </select>
+</div>

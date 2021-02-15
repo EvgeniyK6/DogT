@@ -6,5 +6,5 @@
 -task deletion
 -task marked as done
 -dogs filtering and pagination (list with filtering by specialization ADMIN)
--filtering and sorting list of trainings in dog details <<<
--training details page<<<
+-filtering and sorting list of trainings in dog details
+-adding task ADMIN PANEL <<<<
