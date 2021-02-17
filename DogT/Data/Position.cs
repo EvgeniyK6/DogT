@@ -9,10 +9,10 @@ namespace DogT.Data
     public enum Position
     {
         [Display(Name = "Молодший інспектор-кінолог")]
-        Junior,
+        Молодший,
         [Display(Name = "Інспектор-кінолог")]
-        Middle,
+        Інспектор,
         [Display(Name = "Старший інспектор-кінолог")]
-        Senior
+        Старший
     }
 }

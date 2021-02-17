@@ -17,7 +17,7 @@
                 <th scope="col" class="training_table_date">Дата початку</th>
                 <th scope="col" class="training_table_estimate">Собака</th>
                 <th scope="col" class="training_table_estimate">Зміст</th>
-                <th scope="col" class="training_table_estimate">Крайній термін</th>
+                <th scope="col" class="training_table_date">Крайній термін</th>
                 <th scope="col" class="training_table_estimate">Статус</th>
             </tr>
         </thead>
@@ -53,7 +53,7 @@
                                 }
                                 else
                                 {
-                                    <a asp-action="Delete" asp-route-id="@trainingTask.Id">В архів</a>
+                                    <a class="btn btn-primary" asp-action="Delete" asp-route-id="@trainingTask.Id">В архів</a>
                                 }
 
                             </td>
@@ -80,7 +80,7 @@
                                 }
                                 else
                                 {
-                                    <a asp-action="Delete" asp-route-id="@trainingTask.Id">В архів</a>
+                                    <a class="btn btn-primary" asp-action="Delete" asp-route-id="@trainingTask.Id">В архів</a>
                                 }
 
                             </td>

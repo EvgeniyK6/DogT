@@ -1,0 +1,47 @@
+﻿@model IEnumerable<DogT.Models.Training>
+
+@{
+    ViewData["Title"] = "Тренування";
+    Layout = "_Admin";
+}
+
+<h3 class="page_title">Тренування</h3>
+
+<div class="trainings">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="training_table_num">№</th>
+                <th scope="col" class="training_table_date">Дата</th>
+                <th scope="col" class="training_table_date">Кінолог</th>
+                <th scope="col" class="training_table_date">Собака</th>
+                <th scope="col" class="training_table_estimate">Результат</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count() == 0)
+            {
+                <tr>
+                    <td>Тренування відсутні</td>
+                </tr>
+            }
+            else
+            {
+
+                var num = 1;
+
+                foreach (var training in Model)
+                {
+                    <tr>
+                        <th scope="row">@num</th>
+                        <td><a asp-action="DetailsTraining" asp-route-id="@training.Id">@training.Date</a></td>
+                        <td>@training.DogHandler.Name @training.DogHandler.Surname</td>
+                        <td>@training.Dog.Name</td>
+                        <td>@training.Estimate</td>
+                    </tr>
+                    num++;
+                }
+            }
+        </tbody>
+    </table>
+</div>

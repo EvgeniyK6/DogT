@@ -5,46 +5,92 @@
     Layout = "_Admin";
 }
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Age)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Age)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DogHandler)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DogHandler.Name)
-            @Html.DisplayFor(model => model.DogHandler.Surname)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Specialization)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Specialization.Title)
-        </dd>
-        <dt>
-            Тренування:
-        </dt>
-        <dd>
-            @foreach (var item in Model.Trainings)
-            {
-                <p>@item.Context</p>
-            }
-        </dd>
-    </dl>
+<div class="dog_details">
+    @if (Model.Avatar == null)
+    {
+        <div class="dog_img">
+            <i class="fas fa-dog empty_dog_img"></i>
+        </div>
+    }
+    else
+    {
+        <div class="dog_img dog_img_set"
+             style="background-image: url(@Model.AvatarPath)">
+        </div>
+    }
+
+    <div class="dog_info">
+        <h4 class="dog_name">@Model.Name</h4>
+        @if (Model.Age == 1)
+        {
+            <span class="dog_details_age">@Model.Age рік</span>
+        }
+        else if (Model.Age == 2 || Model.Age == 3)
+        {
+            <span class="dog_details_age">@Model.Age роки</span>
+        }
+        else
+        {
+            <span class="dog_details_age">@Model.Age років</span>
+        }
+
+        <span class="dog_details_specialization">@Model.Specialization.Title</span>
+        <span class="dog_details_specialization">@Model.DogHandler.Name @Model.DogHandler.Surname</span>
+    </div>
 </div>
-<div>
-    <a asp-action="EditDog" asp-route-id="@Model.Id">Редагувати</a> |
-    <a asp-action="Dogs">До списку собак</a>
+
+<div class="dog_menu">
+    <a asp-action="Dogs" class="dog">
+        <div class="dog_img">
+            <i class="fas fa-ellipsis-h empty_dog_img"></i>
+        </div>
+        <h6 class="dog_title">До списку собак</h6>
+    </a>
+    <a asp-action="EditDog" asp-route-id="@Model.Id" class="dog">
+        <div class="dog_img">
+            <i class="fas fa-pencil-alt empty_dog_img"></i>
+        </div>
+        <h6 class="dog_title">Редагувати</h6>
+    </a>
+    <a asp-action="ExcludeDog" asp-route-id="@Model.Id" class="dog">
+        <div class="dog_img">
+            <i class="fas fa-minus-circle empty_dog_img"></i>
+        </div>
+        <h6 class="dog_title">Вилучити</h6>
+    </a>
+</div>
+
+<div class="trainings">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="training_table_num">№</th>
+                <th scope="col" class="training_table_date">Дата</th>
+                <th scope="col" class="training_table_estimate">Результат</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Trainings.Count == 0)
+            {
+                <tr>
+                    <td>Тренування відсутні</td>
+                </tr>
+            }
+            else
+            {
+
+                var num = 1;
+
+                foreach (var training in Model.Trainings)
+                {
+                    <tr>
+                        <th scope="row">@num</th>
+                        <td><a asp-action="DetailsTraining" asp-route-id="@training.Id">@training.Date</a></td>
+                        <td>@training.Estimate</td>
+                    </tr>
+                    num++;
+                }
+            }
+        </tbody>
+    </table>
 </div>

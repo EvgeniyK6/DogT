@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Деталі тренування";
-    Layout = "_DogHandler";
+    Layout = "_Admin";
 }
 
 <div class="training_details">
@@ -11,7 +11,7 @@
             <h3 class="dog_name">@Model.Dog.Name</h3>
         </div>
     </div>
-    <a asp-action="DetailsDog" asp-route-id="@Model.Dog.Id" class="dog">
+    <a asp-action="Trainings" class="dog">
         <div class="dog_img">
             <i class="fas fa-ellipsis-h empty_dog_img"></i>
         </div>
@@ -23,6 +23,14 @@
         </h5>
         <p>
             @Model.Date
+        </p>
+    </div>
+    <div class="training_detail">
+        <h5 class="training_detail_title">
+            Кінолог
+        </h5>
+        <p>
+            @Model.DogHandler.Name @Model.DogHandler.Surname
         </p>
     </div>
     <div class="training_detail">
@@ -73,5 +81,4 @@
             <input type="submit" value="Коментувати" class="btn btn-primary" />
         </div>
     </form>
-
 </div>

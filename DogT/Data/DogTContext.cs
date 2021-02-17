@@ -88,7 +88,7 @@ namespace DogT.Data
                 .HasOne(dh => dh.Dog)
                 .WithMany(tt => tt.TrainingTasks)
                 .HasForeignKey(fk => fk.DogId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

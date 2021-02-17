@@ -8,6 +8,10 @@ using DogT.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using DogT.Models;
+using DogT.ViewModels;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace DogT.Controllers
 {
@@ -15,10 +19,12 @@ namespace DogT.Controllers
     public class AdminController : Controller
     {
         private readonly DogTContext _context;
+        private readonly IWebHostEnvironment _appEnvironment;
 
-        public AdminController(DogTContext context)
+        public AdminController(DogTContext context, IWebHostEnvironment appEnvironment)
         {
             _context = context;
+            _appEnvironment = appEnvironment;
         }
 
         public async Task<IActionResult> Index()
@@ -48,14 +54,27 @@ namespace DogT.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddDog(Dog dog)
+        public async Task<IActionResult> AddDog(Dog dog, IFormFile formFile)
         {
             if (ModelState.IsValid)
             {
+                if (formFile != null)
+                {
+                    string path = "/Avatars/" + formFile.FileName;
+
+                    using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await formFile.CopyToAsync(fileStream);
+                    }
+
+                    dog.Avatar = formFile.FileName;
+                    dog.AvatarPath = path;
+                }
+
                 _context.Dogs.Add(dog);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Dogs));
             }
 
             return View(dog);
@@ -199,6 +218,8 @@ namespace DogT.Controllers
         {
             if (ModelState.IsValid)
             {
+                task.Date = DateTime.Now;
+                
                 _context.TrainingTasks.Add(task);
                 await _context.SaveChangesAsync();
 
@@ -206,6 +227,64 @@ namespace DogT.Controllers
             }
 
             return View(task);
+        }
+
+        public async Task<IActionResult> DogHandlers()
+        {
+            var dogHandlers = await _context.DogHandlers
+                .Include(d => d.Dogs)
+                .ToListAsync();
+
+            return View(dogHandlers);
+        }
+
+        public async Task<IActionResult> Trainings()
+        {
+            var trainings = await _context.Trainings
+                .Include(dh => dh.DogHandler)
+                .ThenInclude(u => u.User)
+                .Include(d => d.Dog)
+                .Include(s => s.Specialization)
+                .ToListAsync();
+
+            return View(trainings);
+        }
+
+        public async Task<IActionResult> DetailsTraining(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var training = await _context.Trainings
+                .Include(dh => dh.DogHandler)
+                .ThenInclude(u => u.User)
+                .Include(d => d.Dog)
+                .Include(s => s.Specialization)
+                .Include(c => c.Comments)
+                .FirstOrDefaultAsync(t => t.Id == id);
+
+            if (training == null)
+            {
+                return NotFound();
+            }
+
+            TrainingViewModel viewModel = new TrainingViewModel
+            {
+                Id = training.Id,
+                Dog = training.Dog,
+                DogHandler = training.DogHandler,
+                Specialization = training.Specialization,
+                Context = training.Context,
+                Date = training.Date,
+                Comments = training.Comments,
+                Estimate = training.Estimate,
+                FileName = training.FileName,
+                FilePath = training.FilePath
+            };
+
+            return View(viewModel);
         }
     }
 }

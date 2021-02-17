@@ -1,0 +1,46 @@
+﻿@model IEnumerable<DogT.Models.DogHandler>
+@using System.ComponentModel.DataAnnotations;
+
+@{
+    ViewData["Title"] = "Кінологи";
+    Layout = "_Admin";
+}
+
+<h3 class="page_title">Кінологи</h3>
+
+<div class="trainings">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="training_table_num">№</th>
+                <th scope="col" class="training_table_date">ФІО</th>
+                <th scope="col" class="training_table_date">Посада</th>
+                <th scope="col" class="training_table_estimate">Кількість собак</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count() == 0)
+            {
+                <tr>
+                    <td>Кінологи відсутні</td>
+                </tr>
+            }
+            else
+            {
+
+                var num = 1;
+
+                foreach (var dogHandler in Model)
+                {
+                    <tr>
+                        <th scope="row">@num</th>
+                        <td><a asp-action="DetailsTraining" asp-route-id="@dogHandler.Id">@dogHandler.Name @dogHandler.Surname</a></td>
+                        <td>@dogHandler.Position</td>
+                        <td>@dogHandler.Dogs.Count</td>
+                    </tr>
+                    num++;
+                }
+            }
+        </tbody>
+    </table>
+</div>

@@ -19,7 +19,7 @@ namespace DogT.Controllers
     public class DogHandlerController : Controller
     {
         private readonly DogTContext _context;
-        IWebHostEnvironment _appEnvironment;
+        private readonly IWebHostEnvironment _appEnvironment;
 
         public DogHandlerController(DogTContext context, IWebHostEnvironment appEnvironment)
         {
@@ -84,7 +84,7 @@ namespace DogT.Controllers
                 _context.Dogs.Add(dog);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Dogs));
             }
 
             return View(dog);
