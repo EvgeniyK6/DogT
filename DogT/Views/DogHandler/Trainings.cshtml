@@ -5,56 +5,41 @@
     Layout = "_DogHandler";
 }
 
-<h3>Мої тренування</h3>
+<h3 class="page_title">Мої тренування</h3>
 
-<p>
-    <a asp-action="AddTraining">Додати тренування</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Dog)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Specialization.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Context)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estimate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Dog.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Specialization.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Context)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estimate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                <a asp-action="EditTraining" asp-route-id="@item.Id">Редагувати</a> |
-                <a asp-action="DetailsTraining" asp-route-id="@item.Id">Деталі</a> |
-                <a asp-action="DeleteTraining" asp-route-id="@item.Id">Видалити</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="trainings">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="training_table_num">№</th>
+                <th scope="col" class="training_table_date">Дата</th>
+                <th scope="col" class="training_table_date">Собака</th>
+                <th scope="col" class="training_table_estimate">Результат</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count() == 0)
+            {
+                <tr>
+                    <td>Тренування відсутні</td>
+                </tr>
+            }
+            else
+            {
+
+                var num = 1;
+
+                foreach (var training in Model)
+                {
+                    <tr>
+                        <th scope="row">@num</th>
+                        <td><a asp-action="DetailsTraining" asp-route-id="@training.Id">@training.Date</a></td>
+                        <td>@training.Dog.Name</td>
+                        <td>@training.Estimate</td>
+                    </tr>
+                    num++;
+                }
+            }
+        </tbody>
+    </table>
+</div>

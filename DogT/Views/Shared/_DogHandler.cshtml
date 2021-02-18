@@ -21,13 +21,19 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="DogHandler" asp-action="Dogs">Собаки</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="DogHandler" asp-action="Index">Огляд тренувань</a>
                             </li>
                             <li class="nav-item">
                                 <div class="page_seperator"></div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="DogHandler" asp-action="Trainings">Тренування</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="DogHandler" asp-action="Dogs">Мої собаки</a>
+                            </li>
+                            <li class="nav-item">
+                                <div class="page_seperator"></div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="DogHandler" asp-action="Trainings">Мої тренування</a>
                             </li>
                             <li class="nav-item">
                                 <div class="page_seperator"></div>

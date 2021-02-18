@@ -14,8 +14,8 @@
             <tr>
                 <th scope="col" class="training_table_num">№</th>
                 <th scope="col" class="training_table_date">ФІО</th>
-                <th scope="col" class="training_table_date">Посада</th>
-                <th scope="col" class="training_table_estimate">Кількість собак</th>
+                <th scope="col" class="training_table_estimate">Посада</th>
+                <th scope="col" class="training_table_date">Кількість собак</th>
             </tr>
         </thead>
         <tbody>
@@ -35,7 +35,7 @@
                     <tr>
                         <th scope="row">@num</th>
                         <td><a asp-action="DetailsTraining" asp-route-id="@dogHandler.Id">@dogHandler.Name @dogHandler.Surname</a></td>
-                        <td>@dogHandler.Position</td>
+                        <td>@Html.DisplayFor(modelItem => dogHandler.Position)</td>
                         <td>@dogHandler.Dogs.Count</td>
                     </tr>
                     num++;
