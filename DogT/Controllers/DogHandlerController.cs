@@ -29,15 +29,14 @@ namespace DogT.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var dogs = await _context.Dogs
-                .Include(d => d.DogHandler)
+            var trainings = await _context.Trainings
+                .Include(dh => dh.DogHandler)
                 .ThenInclude(u => u.User)
+                .Include(d => d.Dog)
                 .Include(s => s.Specialization)
-                .Where(dh => dh.DogHandler.User.Email == User.Identity.Name)
-                .AsNoTracking()
                 .ToListAsync();
 
-            return View(dogs);
+            return View(trainings);
         }
 
         public async Task<IActionResult> Dogs()
@@ -66,7 +65,7 @@ namespace DogT.Controllers
         {
             if (ModelState.IsValid)
             {
-                dog.DogHandler = _context.DogHandlers.FirstOrDefault(d => d.User.Email == User.Identity.Name); ;
+                dog.DogHandler = _context.DogHandlers.FirstOrDefault(d => d.User.Email == User.Identity.Name);
 
                 if (formFile != null)
                 {
@@ -271,7 +270,8 @@ namespace DogT.Controllers
                 .Include(d => d.Dog)
                 .Include(s => s.Specialization)
                 .Include(c => c.Comments)
-                .FirstOrDefaultAsync(t => t.DogHandler.User.Email == User.Identity.Name && t.Id == id);
+                .ThenInclude(dh => dh.DogHandler)
+                .FirstOrDefaultAsync(t => t.Id == id);
 
             if (training == null)
             {
@@ -425,6 +425,30 @@ namespace DogT.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public async Task<IActionResult> TaskDelete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var task = await _context.TrainingTasks
+                .Include(dh => dh.DogHandler)
+                .ThenInclude(u => u.User)
+                .FirstOrDefaultAsync(t => t.Id == id && t.DogHandler.User.Email == User.Identity.Name);
+
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            _context.TrainingTasks.Remove(task);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("TrainingTasks", "DogHandler");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> LiveComment(int id, [Bind("CommentContext")] TrainingComment comment)
         {
             if (ModelState.IsValid)
@@ -442,6 +466,37 @@ namespace DogT.Controllers
             }
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> Proposals()
+        {
+            var proposals = await _context.Proposals
+                .Include(dh => dh.DogHandler)
+                .ToListAsync();
+
+            return View(proposals);
+        }
+        
+        public IActionResult MakeProposal()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MakeProposal(Proposal proposal)
+        {
+            if (ModelState.IsValid)
+            {
+                proposal.Date = DateTime.Now;
+                proposal.DogHandler = _context.DogHandlers.FirstOrDefault(d => d.User.Email == User.Identity.Name);
+
+                _context.Proposals.Add(proposal);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Proposals));
+            }
+
+            return View(proposal);
         }
     }
 }

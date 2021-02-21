@@ -60,7 +60,11 @@
                                 }
                                 else
                                 {
-                                    <a class="btn btn-primary" asp-action="Delete" asp-route-id="@trainingTask.Id">В архів</a>
+                                    <form asp-action="TaskDelete" asp-route-id="@trainingTask.Id">
+                                        <div class="form-group">
+                                            <input class="btn btn-primary" type="submit" value="В архів" />
+                                        </div>
+                                    </form>
                                 }
 
                             </td>
@@ -78,13 +82,17 @@
                             <td>@trainingTask.Deadline</td>
 
                             <td>
-                                <a class="btn btn-primary" asp-action="Delete" asp-route-id="@trainingTask.Id">В архів</a>
+                                <form asp-action="TaskDelete" asp-route-id="@trainingTask.Id">
+                                    <div class="form-group">
+                                        <input class="btn btn-primary" type="submit" value="В архів" />
+                                    </div>
+                                </form>
                             </td>
                         </tr>
-                                        num++;
-                                    }
-                                }
-                            }
+                        num++;
+                    }
+                }
+            }
         </tbody>
     </table>
 </div>

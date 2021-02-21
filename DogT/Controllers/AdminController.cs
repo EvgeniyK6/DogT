@@ -207,6 +207,27 @@ namespace DogT.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> TaskDelete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var task = await _context.TrainingTasks.FirstOrDefaultAsync(t => t.Id == id);
+
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            _context.TrainingTasks.Remove(task);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Tasks));
+        }
+
         public IActionResult GetDogsByHandlers(int id)
         {
             return PartialView(_context.Dogs.Where(d => d.DogHandlerId == id).ToList());
@@ -263,6 +284,7 @@ namespace DogT.Controllers
                 .Include(d => d.Dog)
                 .Include(s => s.Specialization)
                 .Include(c => c.Comments)
+                .ThenInclude(dh => dh.DogHandler)
                 .FirstOrDefaultAsync(t => t.Id == id);
 
             if (training == null)

@@ -21,6 +21,7 @@ namespace DogT.Data
         public DbSet<Training> Trainings { get; set; }
         public DbSet<TrainingTask> TrainingTasks { get; set; }
         public DbSet<TrainingComment> TrainingComments { get; set; }
+        public DbSet<Proposal> Proposals { get; set; }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder)
         //{
@@ -88,6 +89,12 @@ namespace DogT.Data
                 .HasOne(dh => dh.Dog)
                 .WithMany(tt => tt.TrainingTasks)
                 .HasForeignKey(fk => fk.DogId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Proposal>()
+                .HasOne(dh => dh.DogHandler)
+                .WithMany(p => p.Proposals)
+                .HasForeignKey(fk => fk.DogHandlerId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

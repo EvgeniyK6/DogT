@@ -1,11 +1,20 @@
-﻿@model IEnumerable<DogT.Models.Training>
+﻿@model IEnumerable<DogT.Models.Proposal>
 
 @{
-    ViewData["Title"] = "Огляд тренування";
+    ViewData["Title"] = "Пропозиції та зауваження";
     Layout = "_DogHandler";
 }
 
-<h3 class="page_title">Прийми участь у дискусії тренувань</h3>
+<h3 class="page_title">Пропозиції та зауваження</h3>
+
+<div class="dog_menu">
+    <a asp-action="MakeProposal" class="dog">
+        <div class="dog_img">
+            <i class="fas fa-plus empty_dog_img"></i>
+        </div>
+        <h6 class="dog_title">Запропонувати/Зауважити</h6>
+    </a>
+</div>
 
 <div class="trainings">
     <table class="table">
@@ -14,8 +23,7 @@
                 <th scope="col" class="training_table_num">№</th>
                 <th scope="col" class="training_table_date">Дата</th>
                 <th scope="col" class="training_table_date">Кінолог</th>
-                <th scope="col" class="training_table_date">Собака</th>
-                <th scope="col" class="training_table_estimate">Результат</th>
+                <th scope="col" class="training_table_date">Зміст</th>
             </tr>
         </thead>
         <tbody>
@@ -30,14 +38,13 @@
 
                 var num = 1;
 
-                foreach (var training in Model)
+                foreach (var proposal in Model)
                 {
                     <tr>
                         <th scope="row">@num</th>
-                        <td><a asp-action="DetailsTraining" asp-route-id="@training.Id">@training.Date</a></td>
-                        <td>@training.DogHandler.Name @training.DogHandler.Surname</td>
-                        <td>@training.Dog.Name</td>
-                        <td>@training.Estimate</td>
+                        <td><a asp-action="DetailsTraining" asp-route-id="@proposal.Id">@proposal.Date</a></td>
+                        <td>@proposal.DogHandler.Name @proposal.DogHandler.Surname</td>
+                        <td>@proposal.Context</td>
                     </tr>
                     num++;
                 }
